@@ -7,11 +7,10 @@ void highlight(const char *linha, int y) {
   const char *keywords[] = {"int",      "char",   "string",  "for",    "while",
                             "#include", "if",     "else if", "elif",   "else",
                             "continue", "float",  "const",   "printf", "print",
-                            "#define",  "#ifdef", "#ifndef"};
+                            "#define",  "#ifdef", "#ifndef", "import", "def"};
 
-  int cores[] = {COLOR_PAIR(4),  COLOR_PAIR(5),  COLOR_PAIR(6),
-                 COLOR_PAIR(7),  COLOR_PAIR(8),  COLOR_PAIR(9),
-                 COLOR_PAIR(10), COLOR_PAIR(11), COLOR_PAIR(12)};
+  int cores[] = {COLOR_PAIR(4), COLOR_PAIR(5), COLOR_PAIR(6),  COLOR_PAIR(7),
+                 COLOR_PAIR(8), COLOR_PAIR(9), COLOR_PAIR(11), COLOR_PAIR(12)};
 
   int total_keywords = sizeof(keywords) / sizeof(keywords[0]);
   int total_cores = sizeof(cores) / sizeof(cores[0]);
