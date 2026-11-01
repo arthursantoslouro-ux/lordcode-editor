@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-
 int main(int argc, char *argv[]) {
   if (argc < 2) {
     printf("Uso: lordit <arquivo>\n");
@@ -31,6 +30,7 @@ int main(int argc, char *argv[]) {
   init_pair(9, COLOR_CYAN, COLOR_BLACK);
   init_pair(10, COLOR_WHITE, COLOR_BLACK);
   init_pair(11, COLOR_RED, COLOR_BLACK);
+  init_pair(12, COLOR_MAGENTA, COLOR_BLACK);
 
   bkgd(COLOR_PAIR(1));
 
