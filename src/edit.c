@@ -168,7 +168,13 @@ void editar_arquivo(const char *nome) {
     desenhar_tela(nome, linha_atual, coluna_atual, linha_inicio);
 
     tecla = getch();
+    if (tecla == KEY_HOME) {
+      coluna_atual = 0;
+    }
 
+    if (tecla == KEY_END) {
+      coluna_atual = strlen(buffer[linha_atual]);
+    }
     if (tecla == 11) {
       apagar_linha(linha_atual);
     }
