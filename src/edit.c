@@ -6,6 +6,7 @@
 
 char buffer[MAX_LINHAS][MAX_COLUNAS];
 size_t total_de_linhas = 0;
+int arquivo_salvo = 0;
 
 void carregar_arquivo(const char *nome) {
   FILE *arquivo = fopen(nome, "r");
@@ -46,6 +47,8 @@ void salvar_arquivo(const char *nome) {
   for (size_t i = 0; i < total_de_linhas; i++) {
     fprintf(arquivo, "%s\n", buffer[i]);
   }
+
+  arquivo_salvo = 1;
 
   fclose(arquivo);
 }
@@ -131,6 +134,12 @@ void desenhar_tela(const char *nome, int linha_atual, int coluna_atual,
   mvprintw(altura - 1, 0, "lines: %zu  |  Ctrl+O: salvar  Ctrl+X: sair",
            total_de_linhas);
   attroff(COLOR_PAIR(3));
+
+  if (arquivo_salvo != 0) {
+    attron(COLOR_PAIR(3));
+    mvprintw(altura - 1, 0, "Arquivo salvo!     ");
+    attroff(COLOR_PAIR(3));
+  }
 
   int cursor_y = linha_atual - linha_inicio + 1;
 
