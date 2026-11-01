@@ -34,6 +34,8 @@ void carregar_arquivo(const char *nome) {
   fclose(arquivo);
 }
 
+void apagar_linha(int linha_at) { buffer[linha_at][0] = '\0'; }
+
 void salvar_arquivo(const char *nome) {
   FILE *arquivo = fopen(nome, "w");
 
@@ -157,6 +159,10 @@ void editar_arquivo(const char *nome) {
     desenhar_tela(nome, linha_atual, coluna_atual, linha_inicio);
 
     tecla = getch();
+
+    if (tecla == 11) {
+      apagar_linha(linha_atual);
+    }
 
     if (tecla == 24) {
       break;
