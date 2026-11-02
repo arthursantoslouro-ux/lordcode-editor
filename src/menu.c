@@ -7,8 +7,7 @@ FILE *arquivo;
 char nome_arquivo[50];
 
 void menu(void) {
-  const char *opcoes[] = {
-      "Abrir arquivo",
+  const char *opcoes[] = {"Abrir arquivo", "Sair"
 
   };
 
@@ -75,6 +74,12 @@ void menu(void) {
         editar_arquivo(nome_arquivo);
         attroff(COLOR_PAIR(12));
       }
+
+    case 1:
+      printf("\033[2J\033[H");
+      fflush(stdout);
+      endwin();
+      exit(0);
     }
   }
 }
