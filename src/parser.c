@@ -13,7 +13,7 @@ int parser_run(char *destino, size_t tamanho) {
 
   char caminho[512];
 
-  snprintf(caminho, sizeof(caminho), "%s/.lorditrc", home);
+  snprintf(caminho, sizeof(caminho), "%s/.lordcoderc", home);
 
   FILE *arquivo = fopen(caminho, "r");
 

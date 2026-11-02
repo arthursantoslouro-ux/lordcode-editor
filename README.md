@@ -1,2 +1,2 @@
-**este é lordit um editor de texto simples e open-source**
+**este é lordcode um editor de texto simples e open-source**
 

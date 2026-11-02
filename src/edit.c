@@ -136,7 +136,7 @@ void desenhar_tela(const char *nome, int linha_atual, int coluna_atual,
 
   attron(COLOR_PAIR(2));
   mvhline(0, 0, ' ', largura);
-  mvprintw(0, 0, "lordit 1.0    %s", nome);
+  mvprintw(0, 0, "lordcode 2.0    %s", nome);
   attroff(COLOR_PAIR(2));
 
   for (int y = 1; y < altura - 1; y++) {

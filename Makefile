@@ -1,11 +1,11 @@
 CC = clang
 CFLAGS = -Wall -Wextra
-TARGET = lordit
+TARGET = lordcode
 
 all: $(TARGET)
 
-$(TARGET): src/lordit.c
-	$(CC) $(CFLAGS) src/parser.c src/menu.c src/commands.c src/syntax.c src/lordit.c src/edit.c -o $(TARGET) -lncurses
+$(TARGET): src/lordcode.c
+	$(CC) $(CFLAGS) src/parser.c src/menu.c src/commands.c src/syntax.c src/lordcode.c src/edit.c -o $(TARGET) -lncurses
 
 clean:
 	rm -f $(TARGET)
