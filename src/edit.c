@@ -180,8 +180,8 @@ void editar_arquivo(const char *nome) {
       int tamanho = strlen(buffer[linha_atual]);
 
       if (tamanho + 4 < MAX_COLUNAS) {
-        memmove(&buffer[linha_atual][coluna_atual + 4], &buffer[linha_atual],
-                tamanho - coluna_atual + 1);
+        memmove(&buffer[linha_atual][coluna_atual + 4],
+                &buffer[linha_atual][coluna_atual], tamanho - coluna_atual + 1);
 
         for (int f = 0; f < 4; f++) {
           buffer[linha_atual][coluna_atual + f] = ' ';
