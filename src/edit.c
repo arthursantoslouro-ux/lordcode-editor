@@ -110,7 +110,7 @@ void apagar_caractere(int linha, int coluna) {
 }
 
 void desenhar_tela(const char *nome, int linha_atual, int coluna_atual,
-                   int linha_inicio, int te) {
+                   int linha_inicio) {
   int altura, largura;
 
   getmaxyx(stdscr, altura, largura);
@@ -122,47 +122,44 @@ void desenhar_tela(const char *nome, int linha_atual, int coluna_atual,
   mvprintw(0, 0, "lordit 1.0    %s", nome);
   attroff(COLOR_PAIR(2));
 
-  if (te == '$') {
-    mvhline(altura - 1, 0, ' ', largura);
+  for (int y = 1; y < altura - 1; y++) {
+    int linha = linha_inicio + y - 1;
+
+    if (linha >= 0 && linha < (int)total_de_linhas) {
+      highlight(buffer[linha], y);
+    }
   }
 
-  else {
+  attron(COLOR_PAIR(3));
+  mvhline(altura - 1, 0, ' ', largura);
+  mvprintw(altura - 1, 0, "lines: %zu  |  Ctrl+O: salvar  Ctrl+X: sair",
+           total_de_linhas);
+  attroff(COLOR_PAIR(3));
 
-    for (int y = 1; y < altura - 1; y++) {
-      int linha = linha_inicio + y - 1;
-
-      if (linha >= 0 && linha < (int)total_de_linhas) {
-        highlight(buffer[linha], y);
-      }
-    }
-
+  if (arquivo_salvo != 0) {
     attron(COLOR_PAIR(3));
-    mvhline(altura - 1, 0, ' ', largura);
-    mvprintw(altura - 1, 0, "lines: %zu  |  Ctrl+O: salvar  Ctrl+X: sair",
-             total_de_linhas);
+    mvprintw(altura - 1, 0, "Arquivo salvo!     ");
     attroff(COLOR_PAIR(3));
-
-    if (arquivo_salvo != 0) {
-      attron(COLOR_PAIR(3));
-      mvprintw(altura - 1, 0, "Arquivo salvo!     ");
-      attroff(COLOR_PAIR(3));
-    }
-
-    int cursor_y = linha_atual - linha_inicio + 1;
-
-    if (cursor_y >= 1 && cursor_y < altura - 1) {
-      move(cursor_y, coluna_atual);
-    }
-
-    refresh();
   }
+
+  if (mensagem[0] != 0) {
+    mvprintw(LINES - 1, 0, "%s", mensagem);
+  }
+
+  int cursor_y = linha_atual - linha_inicio + 1;
+
+  if (cursor_y >= 1 && cursor_y < altura - 1) {
+    move(cursor_y, coluna_atual);
+  }
+
+  refresh();
 }
 
 void editar_arquivo(const char *nome) {
   int linha_atual = 0;
   int coluna_atual = 0;
   int linha_inicio = 0;
-  int tecla;
+  int tecla = 0;
 
   carregar_arquivo(nome);
 
@@ -173,11 +170,11 @@ void editar_arquivo(const char *nome) {
 
     getmaxyx(stdscr, altura, largura);
 
-    desenhar_tela(nome, linha_atual, coluna_atual, linha_inicio, tecla);
+    desenhar_tela(nome, linha_atual, coluna_atual, linha_inicio);
 
     tecla = getch();
 
-    commands(tecla, largura);
+    commands(tecla, largura, nome, altura);
 
     if (tecla == KEY_HOME) {
       coluna_atual = 0;

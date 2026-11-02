@@ -8,6 +8,7 @@
 
 extern char buffer[MAX_LINHAS][MAX_COLUNAS];
 extern size_t total_de_linhas;
+extern int arquivo_salvo;
 
 void carregar_arquivo(const char *nome);
 void salvar_arquivo(const char *nome);

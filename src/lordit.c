@@ -1,15 +1,11 @@
 #include "edit.h"
+#include "menu.h"
 #include <ncurses.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
 int main(int argc, char *argv[]) {
-  if (argc < 2) {
-    printf("Uso: lordit <arquivo>\n");
-    return 1;
-  }
-
   initscr();
   srand(time(NULL));
   keypad(stdscr, TRUE);
@@ -31,6 +27,10 @@ int main(int argc, char *argv[]) {
   init_pair(10, COLOR_WHITE, COLOR_BLACK);
   init_pair(11, COLOR_RED, COLOR_BLACK);
   init_pair(12, COLOR_MAGENTA, COLOR_BLACK);
+
+  if (argc < 2) {
+    menu();
+  }
 
   bkgd(COLOR_PAIR(1));
 
