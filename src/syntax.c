@@ -7,7 +7,8 @@ void highlight(const char *linha, int y) {
   const char *keywords[] = {"int",      "char",   "string",  "for",    "while",
                             "#include", "if",     "else if", "elif",   "else",
                             "continue", "float",  "const",   "printf", "print",
-                            "#define",  "#ifdef", "#ifndef", "import", "def"};
+                            "#define",  "#ifdef", "#ifndef", "import", "def",
+                            "return",   "size_t", "sizeof"};
 
   int cores[] = {COLOR_PAIR(4), COLOR_PAIR(5), COLOR_PAIR(6),  COLOR_PAIR(7),
                  COLOR_PAIR(8), COLOR_PAIR(9), COLOR_PAIR(11), COLOR_PAIR(12)};

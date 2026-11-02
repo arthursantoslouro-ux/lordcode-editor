@@ -30,6 +30,8 @@ int main(int argc, char *argv[]) {
 
   if (argc < 2) {
     menu();
+    endwin();
+    return 0;
   }
 
   bkgd(COLOR_PAIR(1));

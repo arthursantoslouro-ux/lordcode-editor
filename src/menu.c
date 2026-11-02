@@ -71,8 +71,10 @@ void menu(void) {
         noecho();
 
         arquivo = fopen(nome_arquivo, "a+");
+        wbkgd(stdscr, COLOR_PAIR(1));
+        werase(stdscr);
         editar_arquivo(nome_arquivo);
-        attroff(COLOR_PAIR(12));
+        break;
       }
 
     case 1:
@@ -80,6 +82,7 @@ void menu(void) {
       fflush(stdout);
       endwin();
       exit(0);
+      break;
     }
   }
 }
