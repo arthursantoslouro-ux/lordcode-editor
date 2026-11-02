@@ -2,6 +2,7 @@
 #include "commands.h"
 #include "syntax.h"
 #include <ncurses.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -36,7 +37,23 @@ void carregar_arquivo(const char *nome) {
   fclose(arquivo);
 }
 
-void apagar_linha(int linha_at) { buffer[linha_at][0] = '\0'; }
+void apagar_linha(int linha_at) {
+  if (linha_at < 0 || linha_at >= (int)total_de_linhas)
+    return;
+
+  for (size_t i = linha_at; i < total_de_linhas - 1; i++) {
+    strcpy(buffer[i], buffer[i + 1]);
+  }
+
+  total_de_linhas--;
+
+  if (total_de_linhas == 0) {
+    total_de_linhas = 1;
+    buffer[0][0] = '\0';
+  }
+
+  arquivo_salvo = 0;
+}
 
 void salvar_arquivo(const char *nome) {
   FILE *arquivo = fopen(nome, "w");
@@ -204,6 +221,11 @@ void editar_arquivo(const char *nome) {
 
     if (tecla == 11) {
       apagar_linha(linha_atual);
+
+      if (linha_atual >= (int)total_de_linhas)
+        linha_atual = total_de_linhas - 1;
+
+      coluna_atual = 0;
     }
 
     if (tecla == 24) {
