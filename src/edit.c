@@ -175,6 +175,25 @@ void editar_arquivo(const char *nome) {
     if (tecla == KEY_END) {
       coluna_atual = strlen(buffer[linha_atual]);
     }
+
+    if (tecla == '\t') {
+      int tamanho = strlen(buffer[linha_atual]);
+
+      if (tamanho + 4 < MAX_COLUNAS) {
+        memmove(&buffer[linha_atual][coluna_atual + 4], &buffer[linha_atual],
+                tamanho - coluna_atual + 1);
+
+        for (int f = 0; f < 4; f++) {
+          buffer[linha_atual][coluna_atual + f] = ' ';
+        }
+
+        coluna_atual += 4;
+        arquivo_salvo = 0;
+      }
+
+      continue;
+    }
+
     if (tecla == 11) {
       apagar_linha(linha_atual);
     }
