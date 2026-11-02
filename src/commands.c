@@ -1,14 +1,46 @@
 #include "commands.h"
 #include "edit.h"
+#include "parser.h"
 #include <ncurses.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 char comando[100];
 char mensagem[100] = "";
 char resposta[10] = "";
+char comando_rodar[512];
+
+void abrir_shell(void) {
+  char *shell = getenv("SHELL");
+
+  if (shell == NULL || shell[0] == '\0') {
+    shell = "/bin/sh";
+  }
+
+  def_prog_mode();
+  endwin();
+
+  pid_t pid = fork();
+
+  if (pid == 0) {
+    execl(shell, shell, (char *)NULL);
+    _exit(127);
+  }
+
+  if (pid > 0) {
+    int status;
+    waitpid(pid, &status, 0);
+  }
+
+  reset_prog_mode();
+  refresh();
+  clear();
+}
 
 void commands(int tecla, int l, const char *nome_arquivo, int alt) {
   if (tecla == '$') {
@@ -86,6 +118,26 @@ void commands(int tecla, int l, const char *nome_arquivo, int alt) {
       getchar();
       reset_prog_mode();
       refresh();
+    }
+
+    else if (strcmp(comando, "shell") == 0) {
+      abrir_shell();
+    }
+
+    else if (strcmp(comando, "run") == 0) {
+      if (parser_run(comando_rodar, sizeof(comando)) == 1) {
+        def_prog_mode();
+        endwin();
+        system(comando_rodar);
+        printf("\nPressione ENTER para voltar ao editor...");
+        getchar();
+        reset_prog_mode();
+        refresh();
+      }
+
+      else {
+        printf("RUN nao encontrado\n");
+      }
     }
   }
 }

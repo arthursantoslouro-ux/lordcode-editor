@@ -9,6 +9,7 @@ char nome_arquivo[50];
 void menu(void) {
   const char *opcoes[] = {
       "Abrir arquivo",
+
   };
 
   int total = sizeof(opcoes) / sizeof(opcoes[0]);
@@ -18,8 +19,9 @@ void menu(void) {
   while (1) {
     clear();
 
-    //    attron(COLOR_PAIR(2) | A_BOLD);
+    // attron(COLOR_PAIR(2) | A_BOLD);
 
+    wbkgd(stdscr, COLOR_PAIR(12));
     mvprintw(0, 0, "888                           888 ,e,   d8");
     mvprintw(1, 0, "888      e88~-_  888-~\\  e88~\\888  \"  _d88__");
     mvprintw(2, 0, "888     d888   i 888    d888  888 888  888");
@@ -71,6 +73,7 @@ void menu(void) {
 
         arquivo = fopen(nome_arquivo, "a+");
         editar_arquivo(nome_arquivo);
+        attroff(COLOR_PAIR(12));
       }
     }
   }
