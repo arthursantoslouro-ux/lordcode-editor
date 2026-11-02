@@ -74,5 +74,18 @@ void commands(int tecla, int l, const char *nome_arquivo, int alt) {
         snprintf(mensagem, sizeof(mensagem), "Resposta invalida");
       }
     }
+
+    else if (strncmp(comando, "cmd ", 4) == 0) {
+      char *comando_shell = comando + 4;
+
+      def_prog_mode();
+      endwin();
+      system(comando_shell);
+
+      printf("\nPressione enter para voltar...");
+      getchar();
+      reset_prog_mode();
+      refresh();
+    }
   }
 }
