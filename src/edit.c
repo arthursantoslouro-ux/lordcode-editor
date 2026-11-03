@@ -64,12 +64,15 @@ void salvar_arquivo(const char *nome) {
   }
 
   for (size_t i = 0; i < total_de_linhas; i++) {
-    fprintf(arquivo, "%s\n", buffer[i]);
+    if (fprintf(arquivo, "%s\n", buffer[i]) < 0) {
+      fclose(arquivo);
+      return;
+    }
   }
 
-  arquivo_salvo = 1;
-
-  fclose(arquivo);
+  if (fclose(arquivo) == 0) {
+    arquivo_salvo = 1;
+  }
 }
 
 void inserir_caractere(int linha, int coluna, int tecla) {
@@ -155,9 +158,8 @@ void desenhar_tela(const char *nome, int linha_atual, int coluna_atual,
   attroff(COLOR_PAIR(3));
 
   if (arquivo_salvo != 0) {
-    attron(COLOR_PAIR(3));
-    mvprintw(altura - 1, 0, "Arquivo salvo!     ");
-    attroff(COLOR_PAIR(3));
+    //    attron(COLOR_PAIR(3));
+    // attroff(COLOR_PAIR(3));
   }
 
   if (mensagem[0] != 0) {
@@ -191,10 +193,15 @@ void editar_arquivo(const char *nome) {
     getmaxyx(stdscr, altura, largura);
 
     desenhar_tela(nome, linha_atual, coluna_atual, linha_inicio);
-
+    wtimeout(stdscr, 100);
     tecla = getch();
+    wtimeout(stdscr, -1);
 
-    commands(tecla, largura, nome, altura);
+    if (tecla == ERR) {
+      continue;
+    }
+
+    commands(tecla, largura, nome);
 
     if (tecla == KEY_HOME) {
       coluna_atual = 0;
@@ -236,7 +243,16 @@ void editar_arquivo(const char *nome) {
     }
 
     if (tecla == 15) {
-      salvar_arquivo(nome);
+      arquivo_salvo = 1;
+
+      if (arquivo_salvo) {
+        alert("Arquivo Salvo!", COLOR_YELLOW);
+      }
+
+      else {
+        alert("Erro ao Salvar!", COLOR_RED);
+      }
+
       continue;
     }
 

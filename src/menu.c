@@ -85,7 +85,6 @@ void menu(void) {
         wgetnstr(stdscr, nome_arquivo, sizeof(nome_arquivo) - 1);
         noecho();
 
-        arquivo = fopen(nome_arquivo, "a+");
         wbkgd(stdscr, COLOR_PAIR(1));
         werase(stdscr);
         editar_arquivo(nome_arquivo);

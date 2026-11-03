@@ -42,7 +42,7 @@ void abrir_shell(void) {
   clear();
 }
 
-void commands(int tecla, int l, const char *nome_arquivo, int alt) {
+void commands(int tecla, int l, const char *nome_arquivo) {
   if (tecla == '$') {
     mvhline(LINES - 1, 0, ' ', l);
     mvprintw(LINES - 1, 0, "$ ");
@@ -115,7 +115,7 @@ void commands(int tecla, int l, const char *nome_arquivo, int alt) {
       system(comando_shell);
 
       printf("\nPressione enter para voltar...");
-      getchar();
+      (void)getchar();
       reset_prog_mode();
       refresh();
     }
@@ -130,7 +130,7 @@ void commands(int tecla, int l, const char *nome_arquivo, int alt) {
         endwin();
         system(comando_rodar);
         printf("\nPressione ENTER para voltar ao editor...");
-        getchar();
+        (void)getchar();
         reset_prog_mode();
         refresh();
       }
