@@ -125,7 +125,7 @@ void commands(int tecla, int l, const char *nome_arquivo, int alt) {
     }
 
     else if (strcmp(comando, "run") == 0) {
-      if (parser_run(comando_rodar, sizeof(comando)) == 1) {
+      if (parser_run(comando_rodar, sizeof(comando_rodar)) == 1) {
         def_prog_mode();
         endwin();
         system(comando_rodar);

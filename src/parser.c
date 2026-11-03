@@ -1,3 +1,5 @@
+#include "alert.h"
+#include <ncurses.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +10,7 @@ int parser_run(char *destino, size_t tamanho) {
 
   if (home == NULL) {
     perror("HOME NAO ENCONTRADO");
+    alert("home nao encontrado", COLOR_RED);
     return 1;
   }
 

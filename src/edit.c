@@ -1,4 +1,5 @@
 #include "edit.h"
+#include "alert.h"
 #include "commands.h"
 #include "syntax.h"
 #include <ncurses.h>
@@ -162,6 +163,8 @@ void desenhar_tela(const char *nome, int linha_atual, int coluna_atual,
   if (mensagem[0] != 0) {
     mvprintw(LINES - 1, 0, "%s", mensagem);
   }
+
+  alert_draw();
 
   int cursor_y = linha_atual - linha_inicio + 1;
 
