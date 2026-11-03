@@ -193,7 +193,7 @@ void editar_arquivo(const char *nome) {
     getmaxyx(stdscr, altura, largura);
 
     desenhar_tela(nome, linha_atual, coluna_atual, linha_inicio);
-    wtimeout(stdscr, 100);
+    wtimeout(stdscr, 1000);
     tecla = getch();
     wtimeout(stdscr, -1);
 
@@ -243,7 +243,8 @@ void editar_arquivo(const char *nome) {
     }
 
     if (tecla == 15) {
-      arquivo_salvo = 1;
+
+      salvar_arquivo(nome);
 
       if (arquivo_salvo) {
         alert("Arquivo Salvo!", COLOR_YELLOW);
