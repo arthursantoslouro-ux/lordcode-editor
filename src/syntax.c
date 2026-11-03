@@ -4,6 +4,7 @@
 #include <string.h>
 
 void highlight(const char *linha, int y) {
+  int dentro_string = 0;
   const char *keywords[] = {"int",      "char",   "string",  "for",    "while",
                             "#include", "if",     "else if", "elif",   "else",
                             "continue", "float",  "const",   "printf", "print",
@@ -21,6 +22,31 @@ void highlight(const char *linha, int y) {
   const char *posicao = linha;
   while (*posicao != '\0') {
     int encontrada = 0;
+
+    if (dentro_string) {
+      attron(COLOR_PAIR(6));
+      mvaddch(y, coluna, *posicao);
+      attroff(COLOR_PAIR(6));
+
+      if (*posicao == '"') {
+        dentro_string = 0;
+      }
+      posicao++;
+      coluna++;
+      continue;
+    }
+
+    if (*posicao == '"') {
+      dentro_string = 1;
+      attron(COLOR_PAIR(6));
+      mvaddch(y, coluna, *posicao);
+      attroff(COLOR_PAIR(6));
+
+      posicao++;
+      coluna++;
+      continue;
+    }
+
     for (int i = 0; i < total_keywords; i++) {
       size_t tamanho = strlen(keywords[i]);
 
