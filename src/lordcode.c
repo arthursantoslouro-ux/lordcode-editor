@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
   init_pair(9, COLOR_CYAN, COLOR_BLACK);
   init_pair(10, COLOR_WHITE, COLOR_BLACK);
   init_pair(11, COLOR_RED, COLOR_BLACK);
-  init_pair(12, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(12, COLOR_CYAN, COLOR_BLACK);
 
   if (argc < 2) {
     menu();

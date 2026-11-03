@@ -19,9 +19,7 @@ void menu(void) {
   while (1) {
     clear();
 
-    // attron(COLOR_PAIR(2) | A_BOLD);
-
-    wbkgd(stdscr, COLOR_PAIR(12));
+    attron(COLOR_PAIR(12) | A_BOLD);
 
     mvaddstr(
         1, 2,
@@ -42,6 +40,7 @@ void menu(void) {
         6, 2,
         "╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝");
 
+    attroff(COLOR_PAIR(12) | A_BOLD); // attron(COLOR_PAIR(2) | A_BOLD);
     for (int i = 0; i < total; i++) {
 
       if (i == selecionado) {
